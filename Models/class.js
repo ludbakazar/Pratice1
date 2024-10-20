@@ -54,6 +54,14 @@ class Customer {
         this.#depositAmount = +depositAmount
     }
 
+    get ktp() {
+        return this.#ktp
+    }
+
+    get depositAmount() {
+        return this.#depositAmount
+    }
+
     toJSON(){
         return {
             name : this.name,

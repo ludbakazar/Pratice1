@@ -13,7 +13,9 @@ class Controller {
     }
 
     static async deleteCustomer(idBank, ktp){
-        console.log(ktp);
+        const deletedCustomer = await Model.deleteCustomer(idBank, ktp)
+        // console.log(deletedCustomer);
+        View.showDeletedCustomers(deletedCustomer)
     }
 }
 

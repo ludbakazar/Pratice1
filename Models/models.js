@@ -15,7 +15,7 @@ class Model {
 
     static async creatCustomers(idBank, name, ktp, depositAmount){
         const banks =  await Model.readBank()
-        const banksIndex = banks.findIndex((el) =>  el.id == idBank)
+        const banksIndex = banks.findIndex((el) =>  el.id === idBank)
 
         if ( banksIndex === -1){
             throw new Error("Bank not found")
@@ -29,6 +29,24 @@ class Model {
         banks[banksIndex].customers.push(newCustomer)
         this.saveJSON(banks)
         return newCustomer
+    }
+
+    static async deleteCustomer(idBank, ktp){
+        const banks =   await Model.readBank()
+        const banksIndex = banks.findIndex((el) => el.id === idBank)
+        
+        if  (banksIndex === -1 ) {
+            throw new Error("Bank not found")
+        }
+
+        const customersIndex = banks[banksIndex].customers.findIndex((el) => el.ktp === ktp)
+        
+        if (customersIndex === -1 ) {
+            throw new Error("Customer not found")
+        }
+        const deletedCustomer = banks[banksIndex].customers.splice(customersIndex, 1)
+        this.saveJSON(banks)
+        return deletedCustomer[0]
     }
 }
 
