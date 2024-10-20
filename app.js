@@ -10,10 +10,14 @@ switch (command) {
         const [ idBank, name, ktp, depositAmount] =  process.argv.slice(3);
         Controller.addCustomer(+idBank, name, ktp, depositAmount)
         break;
-    case "deleteCustomer":
-        {
+    case "deleteCustomer":{
         const [ idBank, ktp] =  process.argv.slice(3);
         Controller.deleteCustomer(+idBank, ktp)
+        break;
+        }
+    case "detail":{
+        const [ idBank ] =  process.argv.slice(3);
+        Controller.detailByid(+idBank)
         break;
         }
 

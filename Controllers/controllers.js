@@ -8,15 +8,28 @@ class Controller {
     }
 
     static async addCustomer(idBank, name, ktp, depositAmount){
-        const newCustomer = await Model.creatCustomers(idBank, name, ktp, depositAmount)
-        View.showAddCustomers(newCustomer)
+        try {
+            const newCustomer = await Model.creatCustomers(idBank, name, ktp, depositAmount)
+            View.showAddCustomers(newCustomer)
+        } catch (error) {
+            View.showError(error)
+        }
     }
 
     static async deleteCustomer(idBank, ktp){
-        const deletedCustomer = await Model.deleteCustomer(idBank, ktp)
-        // console.log(deletedCustomer);
-        View.showDeletedCustomers(deletedCustomer)
+        try{
+            const deletedCustomer = await Model.deleteCustomer(idBank, ktp)
+            View.showDeletedCustomers(deletedCustomer)
+        } catch (error){
+            View.showError(error)
+        }
     }
+
+    static async detailByid(idBank){
+        const customer = await Model.detailById(idBank)
+        View.showCustomers(customer)
+    }
+
 }
 
 module.exports = Controller

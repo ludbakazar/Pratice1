@@ -42,12 +42,24 @@ class Model {
         const customersIndex = banks[banksIndex].customers.findIndex((el) => el.ktp === ktp)
         
         if (customersIndex === -1 ) {
-            throw new Error("Customer not found")
+            throw new Error(`Customer with ktp ${ktp} is not found`)
         }
         const deletedCustomer = banks[banksIndex].customers.splice(customersIndex, 1)
         this.saveJSON(banks)
         return deletedCustomer[0]
     }
+
+    static async detailById(idBank) {
+        const banks = await this.readBank()
+        const banksIndex = banks.findIndex((el) => el.id === idBank)
+        
+        if (banksIndex === -1){
+            throw new Error("Bank not found")
+        }
+
+        return banks[banksIndex].customers
+    }
+
 }
 
 module.exports =  Model;
